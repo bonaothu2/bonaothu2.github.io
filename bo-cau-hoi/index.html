@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bộ Não Thứ 2 — Giải đáp cho Doanh nghiệp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f172a;
+  --paper: #fafaf9;
+  --warm: #f5f0eb;
+  --accent: #b45309;
+  --accent-light: #fef3c7;
+  --deep: #1e3a5f;
+  --sage: #365314;
+  --muted: #64748b;
+  --border: #e2e0dc;
+  --card: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.06);
+  --shadow-md: 0 4px 20px rgba(15,23,42,0.08);
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 820px; margin: 0 auto; padding: 0 24px 100px; }
+.hero {
+  text-align: center;
+  padding: 80px 20px 60px;
+}
+.hero::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin: 40px auto 0;
+  border-radius: 2px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--warm);
+  border: 1px solid var(--border);
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+}
+.hero-badge .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.hero h1 span { color: var(--accent); }
+.hero .subtitle { font-size: 18px; color: var(--muted); font-weight: 400; max-width: 560px; margin: 0 auto; }
+.nav {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  padding: 32px 0 48px; position: sticky; top: 0; background: var(--paper);
+  z-index: 100; border-bottom: 1px solid var(--border); margin-bottom: 48px;
+}
+.nav a {
+  text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted);
+  padding: 8px 20px; border-radius: 100px; border: 1px solid var(--border);
+  transition: all 0.25s ease; white-space: nowrap;
+}
+.nav a:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
+.section { margin-bottom: 72px; scroll-margin-top: 100px; }
+.section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.section-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 700; color: var(--border); line-height: 1; flex-shrink: 0; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.section-intro { font-size: 15px; color: var(--muted); margin-bottom: 32px; padding-left: 64px; font-style: italic; line-height: 1.7; }
+@media (max-width: 600px) { .section-intro { padding-left: 0; } }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; margin-bottom: 16px; box-shadow: var(--shadow-sm); transition: box-shadow 0.3s ease;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+}
+.card-tag::before { content: ''; width: 14px; height: 2px; border-radius: 1px; }
+.card-tag.insight { color: var(--deep); }
+.card-tag.insight::before { background: var(--deep); }
+.card-tag.example { color: var(--accent); }
+.card-tag.example::before { background: var(--accent); }
+.card-tag.question { color: var(--sage); }
+.card-tag.question::before { background: var(--sage); }
+.card-tag.layer { color: #7c3aed; }
+.card-tag.layer::before { background: #7c3aed; }
+.card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; line-height: 1.35; margin-bottom: 14px; color: var(--ink); }
+.card p { font-size: 15.5px; line-height: 1.8; color: #374151; }
+.card ul { padding-left: 18px; margin: 10px 0; }
+.card li { font-size: 15px; line-height: 1.8; color: #374151; margin-bottom: 4px; }
+.quote-block { position: relative; padding: 24px 28px; margin: 20px 0; background: var(--warm); border-radius: 8px; border-left: 4px solid var(--accent); }
+.quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; line-height: 1.5; color: var(--ink); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+@media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+.compare-col { padding: 22px 20px; border-radius: 10px; font-size: 14.5px; line-height: 1.75; }
+.compare-col.left { background: #fef2f2; border: 1px solid #fecaca; }
+.compare-col.right { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.compare-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.compare-col.left .compare-label { color: #dc2626; }
+.compare-col.right .compare-label { color: #16a34a; }
+.flow-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0; justify-content: center; }
+.flow-step { background: var(--deep); color: white; padding: 10px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.flow-arrow { color: var(--accent); font-size: 18px; font-weight: 700; }
+.dark-box { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: white; padding: 36px 32px; border-radius: var(--radius); margin-top: 24px; }
+.dark-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--accent); margin-bottom: 20px; font-weight: 700; }
+.dark-box .item { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.dark-box .item:last-child { border-bottom: none; }
+.dark-box .item p { font-family: 'Cormorant Garamond', serif; font-size: 19px; line-height: 1.55; color: #e2e8f0; font-weight: 500; }
+.footer { text-align: center; padding: 48px 0 0; border-top: 1px solid var(--border); margin-top: 40px; }
+.footer p { font-size: 13px; color: var(--muted); }
+.footer .brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Bộ Não Thứ 2 · Obsidian</div>
+  <h1>Giải đáp <span>4 câu hỏi</span> từ doanh nghiệp</h1>
+  <p class="subtitle">Tại sao doanh nghiệp cần hệ thống tri thức riêng trong kỷ nguyên AI — và nó khác gì so với những gì bạn đang có?</p>
+</div>
+
+<div class="nav">
+  <a href="#q1">Mục tiêu</a>
+  <a href="#q2">Tắc nghẽn</a>
+  <a href="#q3">Khác gì trợ lý AI</a>
+  <a href="#q4">Vận hành</a>
+  <a href="#summary">Tổng kết</a>
+</div>
+
+<div class="section" id="q1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">Bộ Não Thứ 2 giúp gì cho mục tiêu doanh nghiệp?</div>
+  </div>
+  <div class="section-intro">Câu hỏi này không hỏi về công cụ — mà hỏi ở tầng tư duy chiến lược: "Cái này có giúp tôi ra quyết định đúng hơn không?"</div>
+
+  <div class="card">
+    <div class="card-tag insight">Tư duy cốt lõi</div>
+    <h3>Không giúp "làm nhanh hơn" — giúp "chọn đúng hơn"</h3>
+    <p>Doanh nghiệp không chết vì làm chậm. Doanh nghiệp chết vì chọn sai. Ra quyết định chiến lược đòi hỏi 3 thứ mà trí nhớ con người và AI đều không có sẵn:</p>
+    <ul>
+      <li><strong>Bối cảnh tích lũy:</strong> Mỗi quyết định sau đứng trên vai mọi quyết định trước — thay vì đoán lại từ đầu</li>
+      <li><strong>Pattern xuyên suốt:</strong> Nhìn ra "mỗi lần thất bại đều chung 1 nguyên nhân" — chỉ thấy khi ghi lại và liên kết nhiều sự kiện</li>
+      <li><strong>Giảm bias:</strong> Đối chiếu lý do quyết định với kết quả thực tế — không bị trí nhớ mờ dần đánh lừa</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-tag example">Ví dụ thực tế</div>
+    <p>Cần quyết định: đầu tư 500 triệu mở showroom hay dồn vào online? AI cho phân tích SWOT chung chung. Nhưng câu trả lời đúng nằm ở data riêng của doanh nghiệp: 18 tháng qua khách offline chiếm bao nhiêu %? Chi phí vận hành showroom Quận 7 vs Quận 1? Đội sales offline có tuyển được người không? Tất cả nằm trong Bộ Não Thứ 2 — không nằm trong bất kỳ AI nào.</p>
+  </div>
+
+  <div class="quote-block">
+    <p>"Bộ Não Thứ 2 giống cố vấn đi cùng doanh nghiệp 5 năm — biết hết thắng thua. AI là cố vấn giỏi nhưng mới gặp bạn hôm nay. Bạn muốn nghe tư vấn của ai?"</p>
+  </div>
+</div>
+
+<div class="section" id="q2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">Nếu tăng năng suất thì phải giải tắc nghẽn — giải bằng cách nào?</div>
+  </div>
+  <div class="section-intro">Năng suất không tăng bằng thêm công cụ mà bằng mở nút thắt cổ chai. Doanh nghiệp nhỏ Việt Nam thường tắc ở 4 chỗ.</div>
+
+  <div class="card">
+    <div class="card-tag insight">4 nút thắt & cách giải</div>
+    <div class="compare">
+      <div class="compare-col left">
+        <div class="compare-label">Tắc nghẽn</div>
+        <p><strong>1. Tắc ở đầu người</strong><br>Chỉ 1-2 người biết cách làm, bận là cả team đứng</p>
+        <p style="margin-top:12px"><strong>2. Tắc ở quy trình</strong><br>Không có SOP, mỗi người làm mỗi kiểu</p>
+        <p style="margin-top:12px"><strong>3. Tắc ở thông tin</strong><br>Data rải rác trong chat, email, đầu người</p>
+        <p style="margin-top:12px"><strong>4. Tắc ở quyết định</strong><br>CEO phải duyệt mọi thứ vì không ai đủ context</p>
+      </div>
+      <div class="compare-col right">
+        <div class="compare-label">Bộ Não Thứ 2 giải</div>
+        <p><strong>→</strong> DNA Voice + SOP → ai cũng làm được, không phụ thuộc 1 người</p>
+        <p style="margin-top:12px"><strong>→</strong> SOP + Checklist + version tracking → chuẩn hóa & tự cải tiến</p>
+        <p style="margin-top:12px"><strong>→</strong> Vault tập trung → 1 nguồn sự thật duy nhất</p>
+        <p style="margin-top:12px"><strong>→</strong> Decision Log + phân quyền → trưởng phòng tự quyết trong phạm vi</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag example">Ví dụ thực tế</div>
+    <p>Nhân viên sales giỏi nhất công ty — chốt đơn gấp 3 người khác. Hỏi "bí quyết gì?" thì nói chung chung "do kinh nghiệm." Ngày anh ta nghỉ, công ty mất luôn bí quyết đó.</p>
+    <p style="margin-top:12px">Bộ Não Thứ 2 buộc bí quyết đó phải được ghi ra: <em>"Khách hỏi giá thì không trả lời giá ngay, hỏi lại nhu cầu trước."</em> Ghi 1 lần — 50 nhân viên mới đọc vào đều biết. Bí quyết của 1 người trở thành năng lực của cả tổ chức.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-tag question">Câu hỏi gợi mở</div>
+    <div class="quote-block">
+      <p>"Tắc nghẽn lớn nhất hiện tại của doanh nghiệp nằm ở đâu? Ở con người, quy trình, thông tin, hay quyết định?"</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="q3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title">Đã có hệ thống trợ lý AI rồi — cần gì Bộ Não Thứ 2?</div>
+  </div>
+  <div class="section-intro">Câu hỏi phổ biến nhất. Bản chất: đang đánh đồng "dùng AI" với "có hệ thống tri thức." Hai thứ hoàn toàn khác nhau.</div>
+
+  <div class="card">
+    <div class="card-tag layer">Tầng 1 — Đồng tình</div>
+    <h3>"Đúng rồi, hệ thống trợ lý giải quyết rất nhiều việc hàng ngày"</h3>
+    <p>Bộ Não Thứ 2 không thay thế trợ lý — nó phục vụ mục đích khác hoàn toàn. Không so sánh hơn thua. Tách bạch ngay.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-tag layer">Tầng 2 — Hoàn thành vs Hoàn tất</div>
+    <h3>Trợ lý giúp "làm xong." Bộ Não Thứ 2 giúp "làm đúng cái đúng."</h3>
+    <p>Trợ lý AI hoàn thành từng đầu việc riêng lẻ: viết email, tóm tắt tài liệu, tạo báo cáo. Nhưng hoàn tất 1 công việc từ đầu đến cuối đòi hỏi bối cảnh (khách này thích gì), tiêu chuẩn (checklist kiểm tra), và tích lũy (lần sau tốt hơn lần trước).</p>
+    <div class="quote-block">
+      <p>"Mỗi lần dùng AI có tốt hơn lần trước không? Hay lần nào cũng bắt đầu lại từ đầu?"</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag layer">Tầng 3 — Cá nhân vs Tổ chức</div>
+    <h3>Trợ lý nằm ở từng người. Bộ Não Thứ 2 nằm ở tổ chức.</h3>
+    <p>Nhân viên A tạo bộ skill riêng, nhân viên B tạo bộ khác. CEO không biết ai đang dùng gì. Khi nhân viên nghỉ — skill, cách dùng AI của họ đều đi theo.</p>
+    <div class="compare">
+      <div class="compare-col left">
+        <div class="compare-label">Hệ thống trợ lý</div>
+        <p>Skill nằm ở từng người, mỗi người mỗi kiểu. Nhân viên nghỉ → mất luôn.</p>
+        <p style="margin-top:8px">Giống <strong>sổ tay cá nhân</strong> — mỗi người viết riêng, không ai đọc của ai.</p>
+      </div>
+      <div class="compare-col right">
+        <div class="compare-label">Bộ Não Thứ 2</div>
+        <p>Tri thức nằm ở tổ chức. Ai nghỉ cũng không mất. Ai mới vào cũng đọc được.</p>
+        <p style="margin-top:8px">Giống <strong>bộ tài liệu ISO</strong> — chuẩn hóa, chuyển giao được, nhân bản được.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag layer">Tầng 4 — Khôn dọc vs Khôn ngang</div>
+    <h3>Mỗi trợ lý giỏi 1 việc. Bộ Não Thứ 2 kết nối insight giữa mọi việc.</h3>
+    <p>Phòng Sales phát hiện: "Khách chốt đơn nhanh gấp đôi khi được gọi lại trong vòng 2 tiếng." Nếu insight đó chỉ nằm trong skill của phòng Sales:</p>
+    <ul>
+      <li>Marketing vẫn để form nằm 24 tiếng mới chuyển Sales</li>
+      <li>CSKH vẫn trả lời ticket theo thứ tự, không ưu tiên khách mới</li>
+      <li>HR vẫn tuyển người không biết cần phản hồi nhanh</li>
+    </ul>
+    <p style="margin-top:12px"><strong>Bộ Não Thứ 2 liên kết insight đó sang tất cả phòng ban.</strong> Insight của 1 người trở thành lợi thế của cả công ty.</p>
+    <div class="quote-block">
+      <p>"Skill giống thợ giỏi — mỗi thợ giỏi 1 nghề. Bộ Não Thứ 2 giống ông chủ — nhìn thấy cả công ty, biết rút kinh nghiệm từ phòng này sang phòng kia."</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag layer">Tầng 5 — Sở hữu & Độc lập</div>
+    <h3>Trợ lý phụ thuộc nhà cung cấp. Bộ Não Thứ 2 thuộc về doanh nghiệp.</h3>
+    <p>Tri thức trong lịch sử chat nằm trên server nhà cung cấp AI. AI tăng giá, đổi chính sách → không mang theo được.</p>
+    <p style="margin-top:12px">Bộ Não Thứ 2 xây trên Obsidian — file markdown nằm trên máy doanh nghiệp, sở hữu vĩnh viễn. Claude đọc được, GPT đọc được, Gemini đọc được. Đổi AI bất kỳ lúc nào, dữ liệu vẫn nguyên vẹn.</p>
+    <div class="quote-block">
+      <p>"Nếu mai nhà cung cấp AI tăng giá gấp 3 — tri thức vận hành của doanh nghiệp còn lại gì?"</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag example">Ẩn dụ dễ nhớ</div>
+    <h3>Công thức nấu ăn vs Nhật ký vận hành</h3>
+    <p>Skill và workflow giống <strong>công thức nấu ăn</strong> — ai cũng tải được, AI cũng viết hộ được.</p>
+    <p style="margin-top:8px">Bộ Não Thứ 2 giống <strong>cuốn nhật ký vận hành</strong> — ghi lại: lần đầu triển khai CRM thất bại vì không train nhân viên, khách hàng lớn nhất chốt đơn vì được tặng sample trước khi báo giá, nhân viên sales giỏi nhất luôn hỏi nhu cầu trước khi giới thiệu sản phẩm.</p>
+    <p style="margin-top:12px"><strong>10 năm sau, doanh nghiệp có nhật ký thì xây được đế chế. Doanh nghiệp chỉ có công thức thì 10 năm vẫn y chang ngày đầu.</strong></p>
+  </div>
+
+  <div class="dark-box">
+    <h3>Câu chốt</h3>
+    <div class="item">
+      <p>"AI là bộ não thuê. Bộ Não Thứ 2 là bộ não của DOANH NGHIỆP. Bộ não thuê thì ai cũng thuê được. Bộ não riêng — chỉ doanh nghiệp đó có."</p>
+    </div>
+    <div class="item">
+      <p>"Trợ lý AI giống nhân viên mới thuê hôm nay. Bộ Não Thứ 2 là cuốn sổ tay 5 năm kinh nghiệm — nhân viên đó đọc vào thì ngày đầu tiên đã hiểu sâu như người làm 5 năm."</p>
+    </div>
+    <div class="item">
+      <p>"Nếu mai không dùng AI nữa — doanh nghiệp còn lại gì? Nếu câu trả lời là 'không có gì' — thì doanh nghiệp đang làm thuê cho AI, không phải AI làm thuê cho doanh nghiệp."</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="q4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title">Làm sao biết nhân sự vận hành thế nào & đồng bộ dữ liệu ra sao?</div>
+  </div>
+  <div class="section-intro">Câu hỏi về governance — ai làm gì, ai kiểm tra, dữ liệu chảy thế nào trong hệ thống.</div>
+
+  <div class="card">
+    <div class="card-tag insight">3 cơ chế giám sát</div>
+    <h3>Không cần đứng sau lưng — chỉ cần kiểm tra hệ thống</h3>
+    <div class="flow-row">
+      <div class="flow-step">SOP + Checklist</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Daily Notes + Weekly Review</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Phân quyền rõ ràng</div>
+    </div>
+    <ul style="margin-top:20px">
+      <li><strong>SOP + Checklist:</strong> Mọi đầu ra qua Checklist trước khi giao. Kiểm tra Checklist = biết nhân sự có đang làm đúng không</li>
+      <li><strong>Daily Notes + Weekly Review:</strong> Mỗi ngày ghi 1 dòng. Cuối tuần review. CEO đọc bản review là nắm toàn cảnh</li>
+      <li><strong>Phân quyền:</strong> Ai đọc gì, sửa gì, duyệt gì — rõ ràng theo mã phòng ban</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-tag example">Ví dụ thực tế</div>
+    <p>CEO đi công tác 2 tuần. Về đến:</p>
+    <ul>
+      <li>Mở <strong>Weekly Review</strong> → biết tuần qua team làm gì, vướng gì</li>
+      <li>Mở <strong>Decision Log</strong> → biết ai quyết định gì, lý do gì, kết quả ra sao</li>
+      <li>Mở <strong>Effort Board</strong> → biết dự án nào đang chạy, tiến độ bao nhiêu</li>
+    </ul>
+    <p style="margin-top:12px">Không cần họp 3 tiếng để nghe báo cáo. Tất cả đã nằm trong hệ thống.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-tag insight">Đồng bộ dữ liệu</div>
+    <p>Vault Obsidian nằm trên cloud (Google Drive). Mọi người truy cập cùng 1 nguồn. Nhân viên A cập nhật SOP → nhân viên B mở ra thấy ngay version mới nhất. Không có chuyện 5 bản Word khác nhau gửi qua Zalo.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-tag question">Lưu ý quan trọng</div>
+    <h3>Bộ Não Thứ 2 không phải phần mềm quản lý task</h3>
+    <p>Nếu cần "ai làm task nào, bao giờ xong" → kết hợp tool quản lý task (Trello, Asana...). Bộ Não Thứ 2 giải quyết <strong>"làm thế nào cho đúng"</strong> — tool task giải quyết <strong>"ai làm gì bao giờ xong."</strong> Hai thứ bổ trợ nhau.</p>
+  </div>
+</div>
+
+<div class="section" id="summary">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <div class="section-title">Tổng kết</div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag insight">Phễu câu hỏi</div>
+    <p>4 câu hỏi đi theo phễu từ chiến lược đến vận hành:</p>
+    <div class="flow-row" style="margin: 24px 0;">
+      <div class="flow-step">Tại sao cần?</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Cơ chế?</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Khác gì đang có?</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Triển khai?</div>
+    </div>
+  </div>
+
+  <div class="dark-box">
+    <h3>3 ẩn dụ cốt lõi</h3>
+    <div class="item">
+      <p><strong style="color:var(--accent)">Google Map</strong> — Tại sao cần?<br>"Không phải vì bạn dốt mới cần Google Map. Mà vì bộ não con người không được thiết kế để nhớ hết mọi con đường."</p>
+    </div>
+    <div class="item">
+      <p><strong style="color:var(--accent)">Bản vẽ thiết kế</strong> — Khác gì bán công cụ?<br>"Đối thủ bán gạch. Chúng tôi bán bản vẽ. Gạch ai cũng mua được, bản vẽ thì cần kiến trúc sư."</p>
+    </div>
+    <div class="item">
+      <p><strong style="color:var(--accent)">Đông y + Tây y</strong> — Tại sao chọn chúng tôi?<br>"Framework Tây đúng, nhưng kê đơn phải theo thể trạng doanh nghiệp Việt Nam."</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="brand">Bộ Não Thứ 2 · Obsidian</div>
+  <p>Hệ thống tri thức cho doanh nghiệp Việt Nam</p>
+</div>
+
+</div>
+</body>
+</html>
