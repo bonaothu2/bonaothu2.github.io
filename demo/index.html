@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảng Xếp Hạng | Cộng đồng AI VIDEO AFFILIATE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0b0a;--bg2:#141210;--bg3:#1c1917;--bg4:#1f1c19;
+  --cream:#e7e3dd;--cream50:rgba(231,227,221,0.5);--cream10:rgba(231,227,221,0.1);--cream06:rgba(231,227,221,0.06);--cream03:rgba(231,227,221,0.03);
+  --brown:#7A5C2E;--brown-glow:rgba(122,92,46,0.12);--gold:#c9a84c;--gold-soft:rgba(201,168,76,0.1);
+  --red:#F96167;--green:#27AE60;--blue:#2E86C1;
+  --white:#fff;--text:#a8a29e;--text2:#78716c;--border:rgba(231,227,221,0.08);--border2:rgba(231,227,221,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);line-height:1.6;font-size:15px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 0;background:rgba(12,11,10,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;letter-spacing:1px}.logo span{color:var(--brown)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text);transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nav-cta{background:var(--brown);color:var(--white);padding:8px 20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .3s}
+.nav-cta:hover{background:var(--gold)}
+@media(max-width:768px){.nav-links{display:none}}
+
+/* PAGE HERO */
+.page-hero{padding:120px 24px 40px;text-align:center}
+.page-hero .label{font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--brown);margin-bottom:16px}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.15;margin-bottom:12px}
+.page-hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.page-hero p{font-size:16px;color:var(--text);max-width:480px;margin:0 auto}
+
+/* COURSE SELECTOR */
+.course-bar{display:flex;justify-content:center;gap:8px;padding:24px 24px 0;flex-wrap:wrap}
+.course-btn{padding:8px 20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:all .3s}
+.course-btn.active,.course-btn:hover{border-color:var(--brown);color:var(--gold);background:var(--gold-soft)}
+
+/* ===== PODIUM ===== */
+.podium-section{padding:48px 24px 60px}
+.podium-tabs{display:flex;justify-content:center;gap:4px;margin-bottom:36px}
+.podium-tab{padding:8px 24px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;background:transparent;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .3s}
+.podium-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+.podium{display:flex;justify-content:center;align-items:flex-end;gap:12px;max-width:600px;margin:0 auto}
+@media(max-width:500px){.podium{gap:6px}}
+
+.podium-card{text-align:center;position:relative;transition:all .4s}
+.podium-card.p1{order:2}.podium-card.p2{order:1}.podium-card.p3{order:3}
+
+.p-avatar{width:72px;height:72px;border-radius:50%;margin:0 auto 10px;overflow:hidden;border:3px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:24px;background:var(--bg3)}
+.p1 .p-avatar{width:88px;height:88px;border-color:var(--gold);font-size:28px;box-shadow:0 0 30px rgba(201,168,76,0.2)}
+.p2 .p-avatar{border-color:#aaa}
+.p3 .p-avatar{border-color:#8B6914}
+
+.p-rank{font-family:'Playfair Display',serif;font-weight:900;font-size:14px;margin-bottom:4px}
+.p1 .p-rank{color:var(--gold);font-size:16px}
+.p2 .p-rank{color:#ccc}
+.p3 .p-rank{color:#8B6914}
+
+.p-name{font-size:14px;font-weight:700;margin-bottom:2px;white-space:nowrap}
+.p-group{font-size:11px;color:var(--text2);margin-bottom:6px}
+
+.p-views{font-family:'Playfair Display',serif;font-weight:900;font-size:18px;color:var(--gold);margin-bottom:8px}
+.p1 .p-views{font-size:24px}
+
+.p-bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(to top,var(--bg3),var(--bg4))}
+.p1 .p-bar{height:120px;background:linear-gradient(to top,var(--bg3),rgba(122,92,46,0.15));border:1px solid rgba(201,168,76,0.15);border-bottom:none}
+.p2 .p-bar{height:88px;border:1px solid var(--border);border-bottom:none}
+.p3 .p-bar{height:64px;border:1px solid var(--border);border-bottom:none}
+
+.p-bar-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:8px}
+.p-bar-label{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;opacity:0.08}
+.p1 .p-bar-label{font-size:48px;opacity:0.12;color:var(--gold)}
+
+/* ===== TABLES ===== */
+.table-section{padding:48px 24px;max-width:1100px;margin:0 auto}
+
+.table-header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.table-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900}
+.table-subtitle{font-size:13px;color:var(--text2);margin-top:2px}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filter-select{background:var(--bg3);border:1px solid var(--border2);color:var(--cream);padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a8a29e' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;min-width:120px}
+.filter-select:focus{outline:1px solid var(--brown);border-color:var(--brown)}
+
+.search-input{background:var(--bg3);border:1px solid var(--border2);color:var(--cream);padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;min-width:180px}
+.search-input::placeholder{color:var(--text2)}
+.search-input:focus{outline:1px solid var(--brown);border-color:var(--brown)}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin-top:8px}
+.data-table th{text-align:left;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);padding:12px 14px;border-bottom:1px solid var(--border2);white-space:nowrap}
+.data-table td{padding:14px 14px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+.data-table tbody tr{transition:background .2s}
+.data-table tbody tr:hover{background:var(--cream03)}
+
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-size:12px;font-weight:900;font-family:'Playfair Display',serif}
+.rank-1{background:var(--gold-soft);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+.rank-2{background:rgba(204,204,204,0.08);color:#ccc;border:1px solid rgba(204,204,204,0.2)}
+.rank-3{background:rgba(139,105,20,0.08);color:#8B6914;border:1px solid rgba(139,105,20,0.2)}
+.rank-other{background:var(--cream03);color:var(--text)}
+
+.status-badge{font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:100px}
+.status-done{background:rgba(39,174,96,0.1);color:var(--green)}
+.status-late{background:rgba(201,168,76,0.1);color:var(--gold)}
+.status-miss{background:rgba(249,97,103,0.1);color:var(--red)}
+
+.view-count{font-family:'Playfair Display',serif;font-weight:700;color:var(--cream)}
+
+.fan-link{font-size:12px;color:var(--brown);border-bottom:1px solid rgba(122,92,46,0.3);transition:color .3s}
+.fan-link:hover{color:var(--gold)}
+
+/* TABLE RESPONSIVE */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  .data-table th,.data-table td{padding:10px 10px;font-size:13px}
+  .table-header{flex-direction:column;align-items:flex-start}
+  .filters{width:100%}
+  .filter-select,.search-input{flex:1;min-width:0}
+  .podium-card .p-name{font-size:12px}
+  .p-avatar{width:56px;height:56px;font-size:18px}
+  .p1 .p-avatar{width:68px;height:68px;font-size:22px}
+  .p-views{font-size:15px}.p1 .p-views{font-size:18px}
+  .p1 .p-bar{height:90px}.p2 .p-bar{height:64px}.p3 .p-bar{height:48px}
+}
+
+/* DIVIDER */
+.section-divider{height:1px;background:linear-gradient(to right,transparent,var(--border2),transparent);max-width:800px;margin:0 auto}
+
+/* CTA */
+.cta-bottom{padding:72px 24px;text-align:center;background:var(--bg3)}
+.cta-bottom h2{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,36px);font-weight:900;margin-bottom:12px}
+.cta-bottom p{font-size:16px;color:var(--text);max-width:420px;margin:0 auto 32px}
+.btn-primary{background:var(--brown);color:var(--white);padding:14px 36px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s;display:inline-block;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--gold);color:var(--bg)}
+
+/* FOOTER */
+.footer{padding:40px 24px;border-top:1px solid var(--border);text-align:center}
+.footer-brand{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;margin-bottom:6px}.footer-brand span{color:var(--brown)}
+.footer-tag{font-size:13px;color:var(--text2);font-style:italic}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.reveal.vis{opacity:1;transform:none}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.p1{animation:float 3s ease-in-out infinite}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">AI VIDEO <span>AFFILIATE</span></a>
+    <div class="nav-links">
+      <a href="/">Trang chủ</a>
+      <a href="/hanh-trinh/" class="active">Bảng xếp hạng</a>
+      <a href="/cau-chuyen/">Câu chuyện</a>
+      <a href="#cta" class="nav-cta">Đăng ký</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero reveal">
+  <div class="label">Bảng xếp hạng thành tích</div>
+  <h1>Cuộc đua <em>triệu view</em></h1>
+  <p>Xếp hạng thời gian thực theo view tích lũy — cá nhân và nhóm. Dữ liệu cập nhật tự động từ hệ thống.</p>
+</div>
+
+<!-- COURSE SELECTOR -->
+<div class="course-bar reveal">
+  <button class="course-btn" onclick="setCourse(this)">K002</button>
+  <button class="course-btn" onclick="setCourse(this)">K003</button>
+  <button class="course-btn active" onclick="setCourse(this)">K004</button>
+</div>
+
+<!-- PODIUM -->
+<section class="podium-section reveal">
+  <div class="podium-tabs">
+    <button class="podium-tab active" onclick="setPodiumTab(this,'individual')">Cá nhân</button>
+    <button class="podium-tab" onclick="setPodiumTab(this,'team')">Nhóm</button>
+  </div>
+
+  <!-- INDIVIDUAL PODIUM -->
+  <div class="podium" id="podium-individual">
+    <div class="podium-card p2">
+      <div class="p-avatar" style="color:#ccc">TL</div>
+      <div class="p-rank">#2</div>
+      <div class="p-name">Thuỳ Linh</div>
+      <div class="p-group">Nhóm 3</div>
+      <div class="p-views">2.4M</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">2</div></div></div>
+    </div>
+    <div class="podium-card p1">
+      <div class="p-avatar" style="color:var(--gold)">TH</div>
+      <div class="p-rank">👑 #1</div>
+      <div class="p-name">Thương</div>
+      <div class="p-group">Nhóm 1</div>
+      <div class="p-views">4.7M</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">1</div></div></div>
+    </div>
+    <div class="podium-card p3">
+      <div class="p-avatar" style="color:#8B6914">QA</div>
+      <div class="p-rank">#3</div>
+      <div class="p-name">Quỳnh Anh</div>
+      <div class="p-group">Nhóm 5</div>
+      <div class="p-views">1.8M</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">3</div></div></div>
+    </div>
+  </div>
+
+  <!-- TEAM PODIUM -->
+  <div class="podium" id="podium-team" style="display:none">
+    <div class="podium-card p2">
+      <div class="p-avatar" style="color:#ccc;font-size:16px">N3</div>
+      <div class="p-rank">#2</div>
+      <div class="p-name">Nhóm 3</div>
+      <div class="p-group">8 thành viên</div>
+      <div class="p-views">1.2M TB</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">2</div></div></div>
+    </div>
+    <div class="podium-card p1">
+      <div class="p-avatar" style="color:var(--gold);font-size:16px">N1</div>
+      <div class="p-rank">👑 #1</div>
+      <div class="p-name">Nhóm 1</div>
+      <div class="p-group">9 thành viên</div>
+      <div class="p-views">1.8M TB</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">1</div></div></div>
+    </div>
+    <div class="podium-card p3">
+      <div class="p-avatar" style="color:#8B6914;font-size:16px">N5</div>
+      <div class="p-rank">#3</div>
+      <div class="p-name">Nhóm 5</div>
+      <div class="p-group">7 thành viên</div>
+      <div class="p-views">980K TB</div>
+      <div class="p-bar"><div class="p-bar-inner"><div class="p-bar-label">3</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TABLE 1: KẾT QUẢ CHI TIẾT -->
+<section class="table-section reveal">
+  <div class="table-header">
+    <div>
+      <div class="table-title">Kết quả chi tiết</div>
+      <div class="table-subtitle">Trạng thái nộp bài theo ngày — K004</div>
+    </div>
+    <div class="filters">
+      <select class="filter-select" onchange="filterTable1()">
+        <option>Tất cả trạng thái</option>
+        <option>Đã nộp</option>
+        <option>Nộp muộn</option>
+        <option>Chưa nộp</option>
+      </select>
+      <select class="filter-select" onchange="filterTable1()">
+        <option>Tất cả nhóm</option>
+        <option>Nhóm 1</option>
+        <option>Nhóm 2</option>
+        <option>Nhóm 3</option>
+        <option>Nhóm 4</option>
+        <option>Nhóm 5</option>
+      </select>
+      <input type="text" class="search-input" placeholder="Tìm tên thành viên..." oninput="filterTable1()">
+    </div>
+  </div>
+  <div class="table-scroll">
+    <table class="data-table" id="detail-table">
+      <thead><tr>
+        <th>Thành viên</th><th>Nhóm</th><th>Ngày 1</th><th>Ngày 2</th><th>Ngày 3</th><th>Ngày 4</th><th>Ngày 5</th><th>Tổng nộp</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Thương</strong></td><td>Nhóm 1</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>5/5</strong></td></tr>
+        <tr><td><strong>Thuỳ Linh</strong></td><td>Nhóm 3</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-late">M</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>5/5</strong></td></tr>
+        <tr><td><strong>Quỳnh Anh</strong></td><td>Nhóm 5</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-miss">C</span></td><td><strong>4/5</strong></td></tr>
+        <tr><td><strong>Minh Đức</strong></td><td>Nhóm 2</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-late">M</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>5/5</strong></td></tr>
+        <tr><td><strong>Phương Anh</strong></td><td>Nhóm 1</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-miss">C</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>4/5</strong></td></tr>
+        <tr><td><strong>Hải Nam</strong></td><td>Nhóm 4</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>5/5</strong></td></tr>
+        <tr><td><strong>Thanh Huyền</strong></td><td>Nhóm 2</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-miss">C</span></td><td><span class="status-badge status-miss">C</span></td><td><span class="status-badge status-done">Đ</span></td><td><strong>3/5</strong></td></tr>
+        <tr><td><strong>Bảo Ngọc</strong></td><td>Nhóm 5</td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-done">Đ</span></td><td><span class="status-badge status-late">M</span></td><td><strong>5/5</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TABLE 2: XẾP HẠNG THỰC LỰC -->
+<section class="table-section reveal">
+  <div class="table-header">
+    <div>
+      <div class="table-title">Xếp hạng thực lực</div>
+      <div class="table-subtitle">View tích lũy — cập nhật thời gian thực</div>
+    </div>
+    <div class="filters">
+      <select class="filter-select" id="rank-type" onchange="toggleRankType()">
+        <option value="individual">Cá nhân</option>
+        <option value="team">Nhóm</option>
+      </select>
+      <select class="filter-select">
+        <option>Tất cả nhóm</option>
+        <option>Nhóm 1</option>
+        <option>Nhóm 2</option>
+        <option>Nhóm 3</option>
+        <option>Nhóm 4</option>
+        <option>Nhóm 5</option>
+      </select>
+      <select class="filter-select">
+        <option>Cao → Thấp</option>
+        <option>Thấp → Cao</option>
+      </select>
+    </div>
+  </div>
+  <div class="table-scroll">
+    <table class="data-table" id="rank-individual">
+      <thead><tr>
+        <th style="width:60px">Hạng</th><th>Thành viên</th><th>View tích lũy</th><th>Khóa</th><th>Nhóm</th><th>Fanpage</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><div class="rank-badge rank-1">1</div></td><td><strong>Thương</strong></td><td class="view-count">4,712,340</td><td>K004</td><td>Nhóm 1</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-2">2</div></td><td><strong>Thuỳ Linh</strong></td><td class="view-count">2,438,920</td><td>K004</td><td>Nhóm 3</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-3">3</div></td><td><strong>Quỳnh Anh</strong></td><td class="view-count">1,823,100</td><td>K004</td><td>Nhóm 5</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-other">4</div></td><td><strong>Hải Nam</strong></td><td class="view-count">1,456,780</td><td>K004</td><td>Nhóm 4</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-other">5</div></td><td><strong>Minh Đức</strong></td><td class="view-count">1,234,560</td><td>K004</td><td>Nhóm 2</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-other">6</div></td><td><strong>Phương Anh</strong></td><td class="view-count">987,430</td><td>K004</td><td>Nhóm 1</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-other">7</div></td><td><strong>Bảo Ngọc</strong></td><td class="view-count">876,210</td><td>K004</td><td>Nhóm 5</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+        <tr><td><div class="rank-badge rank-other">8</div></td><td><strong>Thanh Huyền</strong></td><td class="view-count">654,320</td><td>K004</td><td>Nhóm 2</td><td><a href="#" class="fan-link">Xem kênh →</a></td></tr>
+      </tbody>
+    </table>
+
+    <table class="data-table" id="rank-team" style="display:none">
+      <thead><tr>
+        <th style="width:60px">Hạng</th><th>Nhóm</th><th>Thành viên</th><th>View TB/người</th><th>Tổng view</th><th>Khóa</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><div class="rank-badge rank-1">1</div></td><td><strong>Nhóm 1</strong></td><td>9 người</td><td class="view-count">1,823,400</td><td>16,410,600</td><td>K004</td></tr>
+        <tr><td><div class="rank-badge rank-2">2</div></td><td><strong>Nhóm 3</strong></td><td>8 người</td><td class="view-count">1,245,600</td><td>9,964,800</td><td>K004</td></tr>
+        <tr><td><div class="rank-badge rank-3">3</div></td><td><strong>Nhóm 5</strong></td><td>7 người</td><td class="view-count">987,300</td><td>6,911,100</td><td>K004</td></tr>
+        <tr><td><div class="rank-badge rank-other">4</div></td><td><strong>Nhóm 4</strong></td><td>8 người</td><td class="view-count">876,500</td><td>7,012,000</td><td>K004</td></tr>
+        <tr><td><div class="rank-badge rank-other">5</div></td><td><strong>Nhóm 2</strong></td><td>9 người</td><td class="view-count">654,200</td><td>5,887,800</td><td>K004</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-bottom" id="cta">
+  <div class="reveal">
+    <h2>Gia nhập cuộc đua <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-weight:400">triệu view</em></h2>
+    <p>Tên bạn có thể xuất hiện trên bục vinh danh ở khóa tiếp theo.</p>
+    <a href="https://m.me/your-page" class="btn-primary">Đăng ký thử thách</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">AI VIDEO <span>AFFILIATE</span></div>
+  <div class="footer-tag">Kiên định, nhẹ nhàng, không bỏ cuộc.</div>
+</footer>
+
+<script>
+// Course selector
+function setCourse(btn){
+  document.querySelectorAll('.course-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Podium tabs
+function setPodiumTab(btn,type){
+  document.querySelectorAll('.podium-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('podium-individual').style.display = type==='individual'?'flex':'none';
+  document.getElementById('podium-team').style.display = type==='team'?'flex':'none';
+}
+
+// Rank type toggle
+function toggleRankType(){
+  const v = document.getElementById('rank-type').value;
+  document.getElementById('rank-individual').style.display = v==='individual'?'table':'none';
+  document.getElementById('rank-team').style.display = v==='team'?'table':'none';
+}
+
+// Filter placeholder (will connect to Google Sheet later)
+function filterTable1(){ /* TODO: connect to sheet */ }
+
+// Reveal animation
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
