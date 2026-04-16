@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khảo sát — Bộ não thứ 2</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#f5f2ed;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:#fff;border-radius:12px;padding:40px 36px;max-width:480px;width:100%;border:1px solid rgba(0,0,0,0.07);box-shadow:0 2px 20px rgba(0,0,0,0.06)}
+.label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#7A5C2E;margin-bottom:10px}
+h1{font-size:22px;font-weight:600;color:#1C1C1C;line-height:1.4;margin-bottom:8px}
+.sub{font-size:14px;color:#6B6B6B;line-height:1.6;margin-bottom:28px}
+.divider{height:1px;background:#f0ece6;margin-bottom:28px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:500;color:#444;margin-bottom:6px}
+.field input{width:100%;padding:11px 14px;border:1px solid #e0dbd4;border-radius:8px;font-size:15px;font-family:'DM Sans',sans-serif;color:#1C1C1C;background:#fafaf9;transition:border .2s}
+.field input:focus{outline:none;border-color:#7A5C2E;background:#fff}
+.field input::placeholder{color:#aaa}
+.btn{width:100%;padding:13px;background:#7A5C2E;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s;margin-top:8px}
+.btn:hover{background:#5c4422}
+.btn:disabled{background:#c9b99a;cursor:not-allowed}
+.success{display:none;text-align:center;padding:16px 0}
+.success-icon{width:52px;height:52px;border-radius:50%;background:#f5f0e8;border:1px solid #c9a86c;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px}
+.success h2{font-size:18px;font-weight:600;color:#1C1C1C;margin-bottom:8px}
+.success p{font-size:14px;color:#6B6B6B;line-height:1.6}
+.error-msg{font-size:13px;color:#c0392b;margin-top:10px;display:none;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="form-wrap">
+    <div class="label">Bộ não thứ 2</div>
+    <h1>Để lại thông tin, mình sẽ liên hệ trong 24 giờ</h1>
+    <p class="sub">Không phải bước nào cũng giống nhau — mình đọc kỹ trước rồi mới nói chuyện.</p>
+    <div class="divider"></div>
+
+    <div class="field">
+      <label for="name">Họ và tên</label>
+      <input type="text" id="name" placeholder="Nguyễn Văn A" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="example@gmail.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label for="phone">Số điện thoại</label>
+      <input type="tel" id="phone" placeholder="0912 345 678" autocomplete="tel">
+    </div>
+
+    <button class="btn" id="submit-btn" onclick="submitForm()">Gửi thông tin →</button>
+    <div class="error-msg" id="error-msg">Có lỗi xảy ra, vui lòng thử lại sau.</div>
+  </div>
+
+  <div class="success" id="success-wrap">
+    <div class="success-icon">✓</div>
+    <h2>Mình nhận được rồi!</h2>
+    <p>Mình sẽ đọc và liên hệ lại với bạn trong vòng 24 giờ. Cảm ơn bạn đã tin tưởng.</p>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
+async function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+
+  if (!name || !email || !phone) {
+    alert('Vui lòng điền đầy đủ thông tin.');
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Đang gửi...';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, timestamp: new Date().toLocaleString('vi-VN') })
+    });
+
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-wrap').style.display = 'block';
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Gửi thông tin →';
+    document.getElementById('error-msg').style.display = 'block';
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitForm();
+});
+</script>
+</body>
+</html>
